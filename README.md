@@ -7,10 +7,10 @@
 - User Service
 
 ## Known Issue:
-Payment failures due to timeout in payment gateway.
+Payment failures occur more frequently due to insufficient retry attempts caused by an off-by-one error in the retry logic.
 
 ## Root Cause:
-Timeout configured too low (5 seconds)
+Retry loop condition 'i < RETRY_COUNT' performs one fewer attempt than configured.
 
 ## Build:
-g++ api-gateway/gateway.cpp payment-service/payment.cpp payment-service/gateway_client.cpp -o app
+g++ api-gateway/gateway.cpp payment-service/payment.cpp payment-service/gateway_client.cpp order-service/order.cpp user-service/user.cpp common/logger.cpp -o app
